@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131b">
+  <meta name="description" content="Atar AI — עוזר אישי חכם בעברית ובאנגלית">
+  <title>Atar AI</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark">א</div><span>Atar AI</span></div>
+      <button class="new-chat" id="newChat"><span>＋</span> שיחה חדשה</button>
+      <div class="side-label">השיחות שלך</div>
+      <div class="history" id="history"></div>
+      <div class="sidebar-bottom"><span class="status-dot"></span><span>מופעל באמצעות Cloudflare AI</span></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="פתיחת תפריט">☰</button>
+        <div class="model-label"><span class="online-dot"></span> Atar AI <span class="model-subtitle">· עוזר חכם</span></div>
+        <button class="clear-button" id="clearChat" title="נקה שיחה">נקה שיחה</button>
+      </header>
+
+      <section class="conversation" id="conversation" aria-live="polite">
+        <div class="welcome" id="welcome">
+          <div class="welcome-symbol">✳</div>
+          <p class="eyebrow">ברוך הבא ל־Atar AI</p>
+          <h1>על מה נדבר היום?</h1>
+          <p class="welcome-copy">אפשר לשאול, ליצור, ללמוד או פשוט לחשוב יחד.</p>
+          <div class="suggestions">
+            <button class="suggestion" data-prompt="תן לי רעיונות יצירתיים לפרויקט חדש"><span>✦</span><b>רעיונות יצירתיים</b><small>בוא נתחיל ממשהו חדש</small></button>
+            <button class="suggestion" data-prompt="הסבר לי נושא מורכב בצורה פשוטה"><span>⌘</span><b>ללמוד משהו</b><small>הסברים ברורים ופשוטים</small></button>
+            <button class="suggestion" data-prompt="עזור לי לכתוב טקסט מעניין"><span>✎</span><b>כתיבה ויצירה</b><small>מילים, רעיונות וניסוחים</small></button>
+            <button class="suggestion" data-prompt="עזור לי לפתור בעיה צעד אחר צעד"><span>◇</span><b>לפתור בעיה</b><small>נחשוב על זה ביחד</small></button>
+          </div>
+        </div>
+        <div class="messages" id="messages"></div>
+      </section>
+
+      <footer class="composer-wrap">
+        <form class="composer" id="chatForm">
+          <textarea id="messageInput" rows="1" placeholder="כתוב הודעה ל־Atar AI..." aria-label="הודעה" required></textarea>
+          <button class="send-button" id="sendButton" type="submit" aria-label="שלח הודעה">↑</button>
+        </form>
+        <p class="disclaimer">Atar AI עשוי לטעות. כדאי לבדוק מידע חשוב.</p>
+      </footer>
+    </main>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
