@@ -37,26 +37,29 @@ app.post("/api/chat", async (req, res) => {
   }
 
   try {
-    const response = await fetch(
-      "https://api.cloudflare.com/client/v4/accounts/" + encodeURIComponent(accountId) + "/ai/run/" + encodeURIComponent(MODEL),
-      {
-        method: "POST",
-        headers: {
-          "Authorization": "Bearer " + apiToken,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          messages: [
-            { role: "system", content: "You are a helpful, clear assistant. Reply in the language used by the user. Support Hebrew and English." },
-            ...safeMessages
-          ]
-        })
-      }
-    );
+    // Preserve model namespace separators: Cloudflare routes use / between @cf, publisher and model.
+    const modelPath = MODEL.split("/").map(encodeURIComponent).join("/");
+    const endpoint = "https://api.cloudflare.com/client/v4/accounts/" +
+      encodeURIComponent(accountId) + "/ai/run/" + modelPath;
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + apiToken,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        messages: [
+          { role: "system", content: "You are a helpful, clear assistant. Reply in the language used by the user. Support Hebrew and English." },
+          ...safeMessages
+        ]
+      })
+    });
 
     const data = await response.json().catch(() => ({}));
     if (!response.ok || data.success === false) {
       const detail = data.errors && data.errors[0] && data.errors[0].message;
+      console.error("Workers AI API error:", response.status, detail || "Unknown API error");
       return res.status(502).json({ error: detail || "שירות Cloudflare לא הצליח להשיב. בדוק את הגדרות המודל והטוקן." });
     }
 
